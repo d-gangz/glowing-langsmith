@@ -77,7 +77,8 @@ async def run_evaluation():
         story_outline_generator,       # The async function to evaluate
         data="story input",            # The dataset name in LangSmith
         experiment_prefix="story-outline-stream",  # Prefix for the experiment name
-        max_concurrency=2              # Run up to 2 evaluations concurrently
+        max_concurrency=2,              # Run up to 2 evaluations concurrently
+        # metadata={"developer": "Gang", "tags": ["streaming", "story-outline"]} # Move tags into metadata
     )
     return evaluation_results
 
