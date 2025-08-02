@@ -1,0 +1,47 @@
+[
+  {
+    "inputs": {
+      "decade": "2000s",
+      "movie_description": "A boy wizard attends a magical school"
+    },
+    "outputs": {
+      "rating": "PG"
+    },
+    "metadata": {
+      "movie_title": "Harry Potter",
+      "genre": "fantasy",
+      "year": 2001,
+      "difficulty": "easy"
+    }
+  },
+  {
+    "inputs": {
+      "decade": "2000s",
+      "movie_description": "People trapped in deadly puzzle games"
+    },
+    "outputs": {
+      "rating": "R"
+    },
+    "metadata": {
+      "movie_title": "Saw",
+      "genre": "horror",
+      "year": 2004,
+      "difficulty": "easy"
+    }
+  },
+  {
+    "inputs": {
+      "decade": "2000s",
+      "movie_description": "A clownfish searches for his missing son"
+    },
+    "outputs": {
+      "rating": "G"
+    },
+    "metadata": {
+      "movie_title": "Finding Nemo",
+      "genre": "animation",
+      "year": 2003,
+      "difficulty": "easy"
+    }
+  }
+]
