@@ -72,3 +72,11 @@ The codebase follows these patterns for LangSmith interactions:
 - All scripts log interactions to LangSmith for analysis
 - Streaming evaluation provides better performance metrics than non-streaming
 - The `old-tests/` directory contains experimental code that may be refactored
+
+## LangSmith MCP Server Usage
+
+When using the LangSmith MCP server tools, refer to `ls-mcp-learnings.md` for comprehensive documentation on:
+- Available MCP tools and their exact names
+- Parameter types (especially boolean parameters as strings)
+- Detailed usage examples and workflows
+- Best practices for prompt management, run analysis, and dataset operations
