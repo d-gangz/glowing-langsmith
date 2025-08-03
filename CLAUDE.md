@@ -47,16 +47,19 @@ mypy . --ignore-missing-imports
 
   - `movie_identifier_demo.py`: Demo using movie-identifier prompt from LangSmith
   - `evals.py`: Core evaluation utilities (in development)
+  - `prompts-guide.md`: Quick guide for using LangSmith prompts
   - `CLAUDE.md`: Evaluation-specific documentation
 
 - **`dataset/`**: Dataset management and examples
 
   - `movie_ratings_dataset.json`: Sample dataset for movie rating classification
   - `upload_dataset.py`: Script to upload datasets to LangSmith
-  - `CLAUDE.md`: Dataset creation and management guide
+  - `data-creation.md`: Guide for creating new datasets
+  - `CLAUDE.md`: Dataset creation and management documentation
 
 - **`old-tests/`**: Legacy experimental scripts
   - `eval-prompt.py`, `prompt-stream.py`, `prompt-test.py`, `prompt-so.py`
+  - `CLAUDE.md`: Documentation for legacy patterns and experiments
 
 ### Documentation
 
@@ -106,6 +109,25 @@ The codebase follows these patterns for LangSmith interactions:
 - The `old-tests/` directory contains experimental code that may be refactored
 - New evaluation work should be done in the `eval/` directory
 - Dataset examples and uploads are managed in the `dataset/` directory
+- Each major directory now has its own CLAUDE.md documentation for AI assistance
+- Refer to `prompts-guide.md` for detailed prompt usage patterns
+- Use `data-creation.md` for guidance on creating new datasets
+
+## Directory Guide
+
+Each directory contains specialized functionality with its own documentation:
+
+- **`eval/`**: Start here for running prompt evaluations
+  - Read `CLAUDE.md` for evaluation patterns
+  - Check `prompts-guide.md` for prompt usage examples
+  
+- **`dataset/`**: Create and manage evaluation datasets
+  - Read `CLAUDE.md` for dataset workflows
+  - Follow `data-creation.md` for creating new datasets
+  
+- **`old-tests/`**: Reference legacy implementations
+  - Read `CLAUDE.md` for understanding experimental patterns
+  - Contains examples of streaming, async, and traceable functions
 
 ## LangSmith MCP Server Usage
 
@@ -125,6 +147,7 @@ When using the LangSmith MCP server tools, refer to `ls-mcp-learnings.md` for co
 - **Dataset Management**: Added `dataset/` directory with upload utilities and examples
 - **Enhanced Documentation**: Added comprehensive MCP tools guide (`ls-mcp-learnings.md`)
 - **Code Quality**: Improved formatting and client initialization patterns
+- **Directory Documentation**: Added CLAUDE.md files for all major directories
 
 ### New Features
 
@@ -132,9 +155,11 @@ When using the LangSmith MCP server tools, refer to `ls-mcp-learnings.md` for co
 - LangSmith MCP integration with detailed tool documentation
 - Structured dataset upload utilities
 - Improved prompt management with model settings inclusion
+- Renamed documentation files for clarity (`prompts-guide.md`, `data-creation.md`)
 
 ### File Organization
 
 - Consolidated experimental code in `old-tests/`
 - Created focused directories for evaluation (`eval/`) and datasets (`dataset/`)
 - Added directory-specific documentation files
+- Each directory now includes AI-readable CLAUDE.md documentation
