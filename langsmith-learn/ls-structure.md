@@ -31,7 +31,7 @@ LangSmith is a unified platform for debugging, testing, evaluating, and monitori
 
 ### 1. Use Resource Tags for Environment Separation
 
-**Important**: Do not use Workspaces for environment separation as you cannot share resources across Workspaces[^1]. Instead, use resource tags with the default tag key `Environment` and different values (e.g., `dev`, `staging`, `prod`).
+**Important**: Do not use Workspaces for environment separation as you cannot share resources across Workspaces<sup>[[1]](https://docs.smith.langchain.com/administration/concepts)</sup>. Instead, use resource tags with the default tag key `Environment` and different values (e.g., `dev`, `staging`, `prod`).
 
 This approach enables:
 
@@ -41,13 +41,13 @@ This approach enables:
 
 ### 2. Project-Based Organization
 
-Applications should be organized under projects, with each environment having its own project name[^2]. Projects are the primary organizational unit in LangSmith where all runs are logged.
+Applications should be organized under projects, with each environment having its own project name<sup>[[2]](https://www.langchain.com/langsmith)</sup>. Projects are the primary organizational unit in LangSmith where all runs are logged.
 
 ## Environment Configuration
 
 ### Basic Environment Variables
 
-LangSmith requires the following environment variables[^3][^4]:
+LangSmith requires the following environment variables<sup>[[3]](https://python.langchain.com/v0.1/docs/langsmith/walkthrough/)</sup><sup>[[4]](https://docs.smith.langchain.com/)</sup>:
 
 ```bash
 # Required
@@ -61,7 +61,7 @@ LANGCHAIN_PROJECT=<YOUR-PROJECT-NAME>
 
 ### Environment-Specific Configuration Files
 
-Create separate configuration files for each environment[^5]:
+Create separate configuration files for each environment<sup>[[5]](https://docs.smith.langchain.com/observability/how_to_guides/log_traces_to_project)</sup>:
 
 **.env.development**
 
@@ -121,7 +121,7 @@ my-app/
 
 ### Tagging Strategy
 
-Tags can be used to filter workspace-scoped resources including Projects, Datasets, Annotation Queues, Deployments, and Experiments[^1]. Each workspace comes with two default tag keys:
+Tags can be used to filter workspace-scoped resources including Projects, Datasets, Annotation Queues, Deployments, and Experiments<sup>[[1]](https://docs.smith.langchain.com/administration/concepts)</sup>. Each workspace comes with two default tag keys:
 
 - **Application**: Tag resources by application name
 - **Environment**: Tag resources by environment (dev, staging, prod)
@@ -141,7 +141,7 @@ tags = {
 
 ### Development to Production Pipeline
 
-LangSmith supports both offline and online evaluation workflows[^6]:
+LangSmith supports both offline and online evaluation workflows<sup>[[6]](https://docs.smith.langchain.com/evaluation/concepts)</sup>:
 
 1. **Development Phase**: Offline Evaluation
 
@@ -162,7 +162,7 @@ LangSmith supports both offline and online evaluation workflows[^6]:
 
 ### Offline Evaluation (Pre-deployment)
 
-Offline evaluation tests your application on pre-compiled datasets before deployment[^6]. This can be done:
+Offline evaluation tests your application on pre-compiled datasets before deployment<sup>[[6]](https://docs.smith.langchain.com/evaluation/concepts)</sup>. This can be done:
 
 - Client-side using LangSmith SDK (Python/TypeScript)
 - Server-side via Prompt Playground
@@ -170,7 +170,7 @@ Offline evaluation tests your application on pre-compiled datasets before deploy
 
 ### Online Evaluation (Production)
 
-Online evaluation monitors deployed applications on real traffic in near real-time[^6]. This is configured using Rule Automations with:
+Online evaluation monitors deployed applications on real traffic in near real-time<sup>[[6]](https://docs.smith.langchain.com/evaluation/concepts)</sup>. This is configured using Rule Automations with:
 
 - Custom filters for specific traces
 - Sampling rates to control evaluation volume
@@ -180,7 +180,7 @@ Online evaluation monitors deployed applications on real traffic in near real-ti
 
 ### Dataset Creation Methods
 
-LangSmith offers multiple methods for dataset creation[^7]:
+LangSmith offers multiple methods for dataset creation<sup>[[7]](https://docs.smith.langchain.com/evaluation/how_to_guides/manage_datasets_in_application)</sup>:
 
 1. **From Production Traces**: Convert notable traces into dataset examples
 2. **Manual Creation**: Through UI or programmatically via SDK
@@ -200,7 +200,7 @@ Examples:
 
 ### Dataset Splits
 
-Divide datasets into training, validation, and test sets to prevent overfitting[^8]. This follows standard machine learning workflows and enables better model evaluation.
+Divide datasets into training, validation, and test sets to prevent overfitting<sup>[[8]](https://docs.smith.langchain.com/evaluation/how_to_guides)</sup>. This follows standard machine learning workflows and enables better model evaluation.
 
 ## Code Organization
 
@@ -238,7 +238,7 @@ def get_langsmith_config(env: Environment) -> Dict[str, Any]:
 
 ### Decorator Usage
 
-Use appropriate decorators for tracing[^2]:
+Use appropriate decorators for tracing<sup>[[2]](https://www.langchain.com/langsmith)</sup>:
 
 - `@traceable` for generic functions
 - `@chain` for LangChain runnables
@@ -293,7 +293,7 @@ jobs:
 
 ### Setting Up Automated Monitoring
 
-Configure online evaluation rules for production[^9]:
+Configure online evaluation rules for production<sup>[[9]](https://www.datacamp.com/tutorial/introduction-to-langsmith)</sup>:
 
 ```python
 from langsmith import Client
@@ -369,15 +369,23 @@ rule = client.create_automation_rule(
 
 ## References
 
-[^1]: [LangSmith Concepts - Resource Organization](https://docs.smith.langchain.com/administration/concepts) - Official documentation on workspace organization and resource tagging
-[^2]: [LangSmith Web Search Results](https://www.langchain.com/langsmith) - General LangSmith platform information and best practices
-[^3]: [LangSmith Walkthrough](https://python.langchain.com/v0.1/docs/langsmith/walkthrough/) - Python SDK walkthrough with environment setup
-[^4]: [Get started with LangSmith](https://docs.smith.langchain.com/) - Official getting started guide with configuration examples
-[^5]: [Log traces to specific project](https://docs.smith.langchain.com/observability/how_to_guides/log_traces_to_project) - Documentation on project-specific logging
-[^6]: [Evaluation concepts](https://docs.smith.langchain.com/evaluation/concepts) - Comprehensive guide to offline and online evaluation
-[^7]: [Creating and Managing Datasets in the UI](https://docs.smith.langchain.com/evaluation/how_to_guides/manage_datasets_in_application) - Dataset management documentation
-[^8]: [Evaluation how-to guides](https://docs.smith.langchain.com/evaluation/how_to_guides) - Collection of evaluation best practices
-[^9]: [An Introduction to Debugging And Testing LLMs in LangSmith](https://www.datacamp.com/tutorial/introduction-to-langsmith) - Third-party tutorial with practical examples
+[1]: [LangSmith Concepts - Resource Organization](https://docs.smith.langchain.com/administration/concepts) - Official documentation on workspace organization and resource tagging
+
+[2]: [LangSmith Web Search Results](https://www.langchain.com/langsmith) - General LangSmith platform information and best practices
+
+[3]: [LangSmith Walkthrough](https://python.langchain.com/v0.1/docs/langsmith/walkthrough/) - Python SDK walkthrough with environment setup
+
+[4]: [Get started with LangSmith](https://docs.smith.langchain.com/) - Official getting started guide with configuration examples
+
+[5]: [Log traces to specific project](https://docs.smith.langchain.com/observability/how_to_guides/log_traces_to_project) - Documentation on project-specific logging
+
+[6]: [Evaluation concepts](https://docs.smith.langchain.com/evaluation/concepts) - Comprehensive guide to offline and online evaluation
+
+[7]: [Creating and Managing Datasets in the UI](https://docs.smith.langchain.com/evaluation/how_to_guides/manage_datasets_in_application) - Dataset management documentation
+
+[8]: [Evaluation how-to guides](https://docs.smith.langchain.com/evaluation/how_to_guides) - Collection of evaluation best practices
+
+[9]: [An Introduction to Debugging And Testing LLMs in LangSmith](https://www.datacamp.com/tutorial/introduction-to-langsmith) - Third-party tutorial with practical examples
 
 ### Additional Resources
 
