@@ -20,3 +20,6 @@ __pycache__/
 
 # MCPs
 .mcp.json
+
+# DS store
+.DS_Store
