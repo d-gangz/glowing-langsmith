@@ -183,6 +183,7 @@ def write_todos(todos: list[str], tool_call_id: str) -> Command:
 - [Message state and workflow management in LangGraph](https://langchain-ai.github.io/langgraph/tutorials/get-started/5-customize-state/)[1]
 - [How message management works in LangGraph](https://langchain-ai.github.io/langgraph/how-tos/graph-api/)[2]
 - [LangGraph documentation](https://langchain-ai.github.io/langgraph/)[3]
+- [YT video on how command works](https://www.youtube.com/watch?v=6BJDKf90L9A)
 
 ---
 
@@ -195,3 +196,131 @@ def write_todos(todos: list[str], tool_call_id: str) -> Command:
 [1] https://langchain-ai.github.io/langgraph/tutorials/get-started/5-customize-state/
 [2] https://langchain-ai.github.io/langgraph/how-tos/graph-api/
 [3] https://langchain-ai.github.io/langgraph/
+
+# When to use `command` vs `conditional node`
+
+Let’s go deeper into the **difference between Command and conditional nodes (conditional edges) in LangGraph**, and when to use each:
+
+---
+
+## What is a Conditional Node (Edge) in LangGraph?
+
+- A **conditional node/edge** lets you route to the next node in your graph based on the _current state_.
+- You set up logic that checks the state, and decides which node or nodes to go to next.
+- It **does not modify the state itself**—routing is purely based on existing data.
+- Examples: branching workflows, decision trees, simple if/else logic for next step.
+
+**Syntax:**
+
+```python
+def conditional_routing(state: State) -> str:
+    if state["foo"] == "bar":
+        return "node_a"
+    else:
+        return "node_b"
+
+graph.add_conditional_edges("current_node", conditional_routing)
+```
+
+- Here, the node itself doesn't change `foo`, it just picks what node to run next.
+
+---
+
+## What is a Command Node?
+
+- A **Command** is special: it can **both update the graph state and decide what node to go to next – in the same node function**.
+- This is great for more complex agent flows where you generate new data, update the state, and want the next step to depend on both things.
+- Example: You process user input, generate a result, update the state with new information, and decide where to route next—all-in-one.
+
+**Syntax:**
+
+```python
+def my_command_node(state: State) -> Command[Literal["node_a", "node_b"]]:
+    if state["foo"] == "bar":
+        return Command(update={"foo": "baz"}, goto="node_a")
+    else:
+        return Command(update={"foo": "qux"}, goto="node_b")
+```
+
+- This node both changes `foo` and picks the next route.
+
+---
+
+## Key Differences
+
+| Aspect                    | Conditional Node/Edge          | Command Node                           |
+| ------------------------- | ------------------------------ | -------------------------------------- |
+| **Updates state?**        | ❌ No (read-only)              | ✅ Yes (can update state)              |
+| **Control flow?**         | ✅ Yes (routes based on state) | ✅ Yes (routes based on state/results) |
+| **Single step for both?** | ❌ No (only routing)           | ✅ Yes (combine update+routing)        |
+| **Complex logic**         | ⚡ Ok for simple branching     | 🚀 Powerful for dynamic flows          |
+
+---
+
+## When to Use Which?
+
+- Use **conditional node/edge** when:
+
+  - You only need to decide the next node based on what’s already present in state—no update needed.
+  - Example: Pure logic branching, e.g., “If user is authenticated, go to dashboard.”
+
+- Use **Command** when:
+  - You need to **both** update the state and choose where to route next, ideally in response to fresh data, output, or new side effects.
+  - Example: After performing a calculation, update results and immediately route to a result display node.
+  - Useful for scenarios like:
+    - Multi-agent handoff (pass info + route)
+    - Generating new data before branching
+    - Compact dynamic agent workflows
+
+---
+
+## Practical Example
+
+**Conditional edge:**
+
+```python
+# Separate logic for routing, no state update
+def route_user(state: State) -> str:
+    return "verify_account" if state["account_number"] else "ask_for_account"
+
+graph.add_conditional_edges("start_node", route_user)
+```
+
+**Command node:**
+
+```python
+def process_ticket(state: State) -> Command[Literal["notify_user"]]:
+    ticket_id = create_ticket(state["user_query"])
+    return Command(
+        update={"ticket_id": ticket_id},
+        goto="notify_user"
+    )
+```
+
+---
+
+## References & Docs
+
+- [LangGraph state graph node concepts (Command and conditional edges)](https://langchain-ai.github.io/langgraph/concepts/low_level/)[1]
+- [LangGraph Glossary: difference and when to use Command vs conditional](https://langchain-ai.github.io/langgraphjs/concepts/low_level/)[2]
+- [Control Flow tutorial including examples](https://www.linkedin.com/pulse/exploring-control-flow-langgraph-conditional-edges-vs-pranjal-dwivedi-emrjf)[3]
+
+---
+
+## TL;DR
+
+- **Conditional node/edge = choose next step based only on current state.**
+- **Command = update the state + choose next step (all in one).**
+
+Use Command whenever you want to **do something and decide what happens next**, not just route.
+
+[1] https://langchain-ai.github.io/langgraph/concepts/low_level/
+[2] https://langchain-ai.github.io/langgraphjs/concepts/low_level/
+[3] https://www.linkedin.com/pulse/exploring-control-flow-langgraph-conditional-edges-vs-pranjal-dwivedi-emrjf
+[4] https://dev.to/jamesli/advanced-langgraph-implementing-conditional-edges-and-tool-calling-agents-3pdn
+[5] https://towardsdatascience.com/from-basics-to-advanced-exploring-langgraph-e8c1cf4db787/
+[6] https://www.reddit.com/r/LangChain/comments/1cn7cjy/changing_state_attributes_in_langgraph/
+[7] https://langchain-ai.github.io/langgraph/how-tos/graph-api/
+[8] https://github.com/langchain-ai/langgraph/discussions/5064
+[9] https://github.com/langchain-ai/langgraph/discussions/2498
+[10] https://www.youtube.com/watch?v=EKxoCVbXZwY
